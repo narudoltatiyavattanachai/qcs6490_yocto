@@ -1,3 +1,6 @@
 /.repo
 /layers
 /src/vendor
+/sstate-cache
+/build-qcom-wayland
+/downloads
