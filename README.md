@@ -1,6 +1,21 @@
 # QCS6490 Yocto Project
 
 ## Overview
+
+```bash
+sudo apt install gawk wget git diffstat unzip texinfo gcc build-essential chrpath socat cpio python3 python3-pip python3-pexpect xz-utils debianutils iputils-ping python3-git python3-jinja2 libegl1-mesa libsdl1.2-dev pylint xterm python3-subunit mesa-common-dev zstd liblz4-tool
+```
+
+
+## Host PC Prerequisites
+
+Before starting the setup, ensure your host PC has the following packages installed:
+Install all prerequisites with the following command:
+
+```bash
+sudo apt install gawk wget git diffstat unzip texinfo gcc build-essential chrpath socat cpio python3 python3-pip python3-pexpect xz-utils debianutils iputils-ping python3-git python3-jinja2 libegl1-mesa libsdl1.2-dev pylint xterm python3-subunit mesa-common-dev zstd liblz4-tool
+```
+
 This repository contains setup instructions for the QCS6490 Yocto build environment with ROS2 integration. Follow these steps to set up, configure, and build the system.
 
 ## Setup Instructions
@@ -87,6 +102,7 @@ The following packages are currently disabled due to issues with `ament_cmake.bb
 
 ### 3. Set the Compilation Environment
 Set up the required environment variables:
+
 
 ```bash
 # Export build configuration variables
