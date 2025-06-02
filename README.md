@@ -1,6 +1,6 @@
 # qcs6490_yocto project
 
-# Download .repo into workspace:
+# Download .repo into workspace enviroement:
 
 repo init \
 -u https://github.com/rubikpi-ai/rubikpi-manifest \
@@ -10,11 +10,8 @@ repo init \
 repo sync
 
 
-# Quick Rubik Pi Board compilation:
+# Manual set the compilation environment:
 
-./rubikpi_build.sh
-
-# Manual set the compilation environment
 export EXTRALAYERS="meta-qcom-qim-product-sdk"
 export MACHINE=qcm6490-idp
 export DISTRO=qcom-wayland
@@ -22,6 +19,7 @@ export FWZIP_PATH="`pwd`/src/vendor/thundercomm/prebuilt/BP-BINs"
 source setup-environment_RUBIKPi
 export BB_ENV_PASSTHROUGH_ADDITIONS="$BB_ENV_PASSTHROUGH_ADDITIONS FWZIP_PATH CUST_ID"
 
-# Manual compilation (Flash Image & Cross Compiler)
+# Manual compilation (Flash Image & Cross Compiler):
+
 bitbake qcom-multimedia-image
 bitbake qcom-qim-product-sdk
