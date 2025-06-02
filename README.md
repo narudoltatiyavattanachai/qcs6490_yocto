@@ -1,18 +1,35 @@
-# qcs6490_yocto project
+# QCS6490 Yocto Project
 
-# Download .repo into workspace enviroement:
+## Overview
+This repository contains setup instructions for the QCS6490 Yocto build environment with ROS2 integration. Follow these steps to set up, configure, and build the system.
 
+## Setup Instructions
+
+### 1. Initialize and Sync Repository
+Download `.repo` into your workspace environment:
+
+```bash
+# Initialize the repository
 repo init \
--u https://github.com/rubikpi-ai/rubikpi-manifest \
--b qcom-linux-kirkstone \
--m rubikpi-6.6.52-QLI.1.3-Ver.1.1.1_qim-product-sdk-1.1.2.xml
+    -u https://github.com/rubikpi-ai/rubikpi-manifest \
+    -b qcom-linux-kirkstone \
+    -m rubikpi-6.6.52-QLI.1.3-Ver.1.1.1_qim-product-sdk-1.1.2.xml
 
+# Synchronize the repository
 repo sync
+```
 
-# Edit recipe file for adding ros2 packages
+### 2. Configure ROS2 Packages
+Edit the recipe file to add ROS2 packages:
+
+```bash
+# Open the recipe file in an editor
 nano ~/Winsurf/rubikpi_yocto/layers/meta-qcom-distro/recipes-products/images/qcom-multimedia-image.bb
+```
 
-# Add ros2 packages into files
+Add the following ROS2 packages to the file:
+
+```
 IMAGE_INSTALL:append = " \
         ros-core \
         ros-base \
@@ -46,33 +63,52 @@ IMAGE_INSTALL:append = " \
         builtin-interfaces \
         lifecycle-msgs \
 "
+```
+
+### Note: Disabled ROS2 Packages
+The following packages are currently disabled due to issues with `ament_cmake.bbclass`:
+
+```
+# ros2-control
+# ros2-controllers
+# ros2-navigation2
+# ros2-perception
+# ros2-robot-state-publisher
+# ros2-rosbag2-transport
+# ros2-rqt
+# ros2-rviz2
+# ros2-image-tools
+# ros2-vision-opencv
+```
 
 
-#"ament_cmake.bbclass" cause below disable
-#ros2-control \
-#ros2-controllers \
-#ros2-navigation2 \
-#ros2-perception \
-#ros2-robot-state-publisher \
-#ros2-rosbag2-transport \
-#ros2-rqt \
-#ros2-rviz2 \
-#ros2-image-tools \
-#ros2-vision-opencv
 
+## Build Configuration
 
+### 3. Set the Compilation Environment
+Set up the required environment variables:
 
-# Manual set the compilation environment:
-
+```bash
+# Export build configuration variables
 export EXTRALAYERS="meta-qcom-qim-product-sdk"
 export MACHINE=qcm6490-idp
 export DISTRO=qcom-wayland
 export FWZIP_PATH="`pwd`/src/vendor/thundercomm/prebuilt/BP-BINs"
+
+# Source the environment setup script
 source setup-environment_RUBIKPi
+
+# Configure additional environment pass-through variables
 export BB_ENV_PASSTHROUGH_ADDITIONS="$BB_ENV_PASSTHROUGH_ADDITIONS FWZIP_PATH CUST_ID"
+```
 
-# Manual compilation (Flash Image & Cross Compiler):
+### 4. Build the Image
+Compile the flash image and cross compiler:
 
+```bash
+# Build the multimedia image
 bitbake qcom-multimedia-image
-bitbake qcom-qim-product-sdk
 
+# Build the QIM product SDK
+bitbake qcom-qim-product-sdk
+```
