@@ -2,6 +2,11 @@
 
 ## Overview
 
+<p align="center">
+  <img src="docs/The_Yocto_Project.jpg" alt="The Yocto Project" style="max-width:100%; height:auto;" />
+</p>
+
+
 ## Host PC Prerequisites
 
 Before starting the setup, ensure your host PC has the following packages installed:
